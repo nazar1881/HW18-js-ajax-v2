@@ -114,16 +114,15 @@ class TodoList {
 
     async getJSONData() {
         try {
-            let data = await sendGETRequest("http://localhost:3000/todos");
-            return data;
+            return sendGETRequest("http://localhost:3000/todos");;
         } catch (error) {
             console.log(new Error(error));
         }
     }
 
-    render() {
+    async render() {
         let lis = '';
-        this.getJSONData()
+        await this.getJSONData()
             .then((data) => {
                 for (let item of data) {
                     if (!item) {
@@ -187,7 +186,7 @@ class TodoList {
                 if (item.id == id) {
                     sendDeleteRequest(`${requestURL}/${id}`);
                 }  
-                this.render();     
+                this.render();
             }
         } catch (error) {
             console.error(error);
